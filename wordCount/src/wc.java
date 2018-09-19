@@ -9,21 +9,21 @@ public class wc
 	{
 		if(args[0]=="wc")
 		{
-			if((args[1]=="-l" || args[1]=="-w" || args[1]=="-c") && args[2]=="filename")	//need to check if file exists
+			if((args[1]=="-l" || args[1]=="-w" || args[1]=="-c") /* && the file (args[2] can be read */)	//need to check if file exists
 			{
 				int numFiles=2;
-				while(args[numFiles]!=null)  //continues till there are no more files to read through
+				while(args[numFiles]!=null  /* && the file (args[numFiles]) can be read */ )  //continues till there are no more files to read through
 				{
 					//enter method accepting args[1] and filename
 					numFiles++;
 				}
 			}
-			else if (args[1]=="filename")
+			else if (/* the file (args[1] can be read */)
 			{	
 				int numFiles=1;
 				while(args[numFiles]!=null)
 				{
-					//enter method accepting filename
+					//enter method accepting filename can be read
 					numFiles++;
 				}
 			}
