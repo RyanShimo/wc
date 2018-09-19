@@ -43,6 +43,7 @@ public class wc
 	//method accepts filename	prints line count
 	//method accepts filename	prints word count
 	//method accepts filename	prints character count
+	//fvgrijdnfd
 	
 	
 }
