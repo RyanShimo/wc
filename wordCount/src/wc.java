@@ -5,7 +5,6 @@
 */
 
 import java.io.*;
-
 public class wc 
 {
 	public static void main (String []args) throws FileNotFoundException
@@ -13,12 +12,22 @@ public class wc
 		
 		if(args.length>=1 && args[0].equals("wc"))
 		{
-			System.out.println("rfvd");
-			File documentOne = new File(args[2]); 
-			File documentTwo = new File(args[1]);
-			if(args[1].equals("-l") || args[1].equals("-w") || args[1].equals("-c"))	
+			
+			if(args.length==1)
 			{
-				System.out.println("rfvd");
+				System.out.print("Description: The wc utility displays the number of lines, words,\n"
+						+ "and/or characters contained in each input file. \n" + 
+					"  The following options are: \n" + 
+					"	wc -l [file ...]	The number of lines in a file\n" + 
+					"	wc -w [file ...]	The number of characters in a file\n" + 
+					"	wc -c [file ...]	The number of words in a file\n" + 
+					"	wc [file ...]		The number of lines, characters and words in a file");
+			}
+
+			 
+			else if(args[1].equals("-l") || args[1].equals("-w") || args[1].equals("-c"))	
+			{
+				File documentOne = new File(args[2]);
 				int numFiles=2;
 				while(documentOne.exists()) //continues till there are no more files to read through
 				{
@@ -27,26 +36,23 @@ public class wc
 					documentOne = new File(args[numFiles]);
 				}
 			}
-			else if(documentTwo.exists())
+			
+			else 
 			{
-				int numFiles=1;
-				while(documentTwo.exists())
+				File documentTwo = new File(args[1]);
+				if(documentTwo.exists())
 				{
-					//enter method accepting filename
-					numFiles++;
-					documentTwo = new File(args[numFiles]);
+					int numFiles=1;
+					while(documentTwo.exists())
+					{
+						//enter method accepting filename
+						numFiles++;
+						documentTwo = new File(args[numFiles]);
+					}
 				}
 			}
 
-			else if(args[1].equals(null))
-			{
-				System.out.print("Description: The wc utility displays the number of lines, words, and/or characters contained in each input file. \n" + 
-						"The following options are: \n" + 
-						"	wc -l [file ...]	The number of lines in a file\n" + 
-						"	wc -w [file …]	The number of characters in a file\n" + 
-						"	wc -c [file …]	The number of words in a file\n" + 
-						"	wc [file …]	The number of lines, characters and words in a file");
-			}
+			
 		}
 	}
 	
