@@ -8,7 +8,7 @@ import java.io.*;
 
 public class wc 
 {
-	public static void main (String []args)
+	public static void main (String []args) throws FileNotFoundException
 	{
 		if(args[0]=="wc")
 		{
