@@ -49,19 +49,41 @@ public class wc
 					}
 				}
 			}
-
-			
 		}
 	}
+
 	
-	//method accepts args[1] and filename 	continues to respected -l, -w, or -c
 	//method accepts filename	prints l, w, and c 
+	public static int[] allCounts(String file)
+	{
+		
+	}
+	//method accepts args[1] and filename 	continues to respected -l, -w, or -c
+	public static int parentCount(String whichCount, String file)
+	{
+		
+	}
 	//method accepts filename	prints line count
+	public static int lineCount(String file)
+	{
+		
+	}
 	//method accepts filename	prints word count
+	public static int wordCount(String file)
+	{
+		
+	}
 	//method accepts filename	prints character count
+	public static int characterCount(String file)
+	{
+		
+	}
 	
 	//method accepts filename   puts filename stuff into an array
-	
+	public static String[] fileData(String file)
+	{
+		
+	}
 	
 	
 }
