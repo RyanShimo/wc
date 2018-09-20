@@ -56,12 +56,22 @@ public class wc
 	//method accepts filename	prints l, w, and c 
 	public static int[] allCounts(String file)
 	{
-		
+		int l = lineCount(file);
+		int w = wordCount(file);
+		int c = characterCount(file);
+		int[] counts = {l, w, c};
+		return counts;
 	}
 	//method accepts args[1] and filename 	continues to respected -l, -w, or -c
 	public static int parentCount(String whichCount, String file)
 	{
-		
+		if(whichCount.equals("-l"))
+			return lineCount(file);
+		else if(whichCount.equals("-l"))
+			return wordCount(file);
+		else if(whichCount.equals("-l"))
+			return characterCount(file);
+		return 0;
 	}
 	//method accepts filename	prints line count
 	public static int lineCount(String file)
