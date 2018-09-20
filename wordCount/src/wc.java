@@ -12,7 +12,6 @@ public class wc
 		
 		if(args.length>=1 && args[0].equals("wc"))
 		{
-			
 			if(args.length==1)
 			{
 				System.out.print("Description: The wc utility displays the number of lines, words,\n"
@@ -23,9 +22,8 @@ public class wc
 					"	wc -c [file ...]	The number of words in a file\n" + 
 					"	wc [file ...]		The number of lines, characters and words in a file");
 			}
-
 			 
-			else if(args[1].equals("-l") || args[1].equals("-w") || args[1].equals("-c"))	
+			else if(args.length>3 && (args[1].equals("-l") || args[1].equals("-w") || args[1].equals("-c")))	
 			{
 				File documentOne = new File(args[2]);
 				int numFiles=2;
