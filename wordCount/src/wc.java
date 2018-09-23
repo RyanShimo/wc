@@ -7,7 +7,7 @@
 import java.io.*;
 import java.util.Scanner;
 import java.util.Arrays;
-public class wcJGRASP 
+public class wc
 {
 	public static void main (String []args) throws FileNotFoundException
 	{
