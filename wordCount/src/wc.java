@@ -7,14 +7,13 @@
 import java.io.*;
 import java.util.Scanner;
 import java.util.Arrays;
-public class wc
+public class wcJGRASP 
 {
 	public static void main (String []args) throws FileNotFoundException
 	{
 		
 		if(args.length>=1 && args[0].equals("wc"))
 		{
-
 			
 			if(args.length==1) // makes sure if the input is strictly wc then it will print out a description
 			{
@@ -40,33 +39,23 @@ public class wc
 					firstInput[0] = newInput[0];
 				}
 					File documentOne = new File(args[argumentNum]);
-					
+					if(argumentNum==1)
+                  identifier=7;
+                  
 					while(documentOne.exists()) 
 					{
 						System.out.print("\n" + Arrays.toString(parentCount(identifier,documentOne)));  						
-                  //argumentNum++;
-						documentOne = new File(args[argumentNum-1]);
+                  if(args.length-1>argumentNum)
+                  {
+                     argumentNum++;
+						   documentOne = new File(args[argumentNum]);
+                  }
+                  else 
+                     break;
 					}
 			}
-			
-			else 
-			{
-				File documentTwo = new File(args[1]);
-				int numFiles=1;
-				while(documentTwo.exists())
-				{
-					System.out.println("\n" + parentCount(7,documentTwo));  
-               numFiles++;
-					documentTwo = new File(args[numFiles]);
-				}
-			}
-	
-		}
-		
-			
+		}	
 	}
-
-
 
 	
 	//method accepts filename	returns l w, c in an array 
@@ -78,6 +67,7 @@ public class wc
 		int[] counts = {l, w, c};
 		return counts;
 	}
+   
 	//method accepts countIdentifier and filename 	continues to respected -l, -w, or -c
 	public static int[] parentCount(int whichCount, File file)
 	{
@@ -112,6 +102,7 @@ public class wc
 		
 		return values;
 	}
+   
 	//method accepts filename	prints line count
 	public static int lineCount(File file)
 	{
@@ -129,11 +120,11 @@ public class wc
 		}
 		catch(FileNotFoundException e)
 		{
-			System.out.print("File not found");
 		}
 
 		return lines;
 	}
+   
 	//method accepts filename	prints word count
 	public static int wordCount(File file)
 	{
@@ -150,10 +141,11 @@ public class wc
 
 		catch(FileNotFoundException e)
 		{
-			System.out.print("File not found");
 		}
+      
 		return words;
 	}
+   
 	//method accepts filename	prints character count
 	public static int characterCount(File file)
 	{
@@ -174,17 +166,13 @@ public class wc
             wordsArray[i] = s1.next();
             characters += wordsArray[i].length();
          }
-         
 		}
-
 	   catch(FileNotFoundException e)
 		{
-			System.out.print("File not found");
 		}
-
+      
 		return characters;
 	}
-	
 	
 	//method accepts argument   returns the number of which counts to do 
 	public static int countIdentifier(String identifier)
@@ -203,7 +191,3 @@ public class wc
 	}
 	
 }
-
-
-}
-
