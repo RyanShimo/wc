@@ -7,12 +7,10 @@
 import java.io.*;
 import java.util.Scanner;
 import java.util.Arrays;
-
 public class wc
 {
 	public static void main (String []args) throws FileNotFoundException
 	{
-		
 		
 		if(args.length>=1 && args[0].equals("wc"))
 		{
@@ -33,6 +31,8 @@ public class wc
             
 				while(firstInput[0]=='-' && firstInput.length>1 && argumentNum!=4) //checks through given argument and gets which counts are going to occur even if input as -l -w -c or -wc -l or -lcw
 				{
+               if(argumentNum==2)
+                  identifier++;
 					identifier += countIdentifier(args[argumentNum]); //assumed they only input each letter l w or c once, program will be incorrect if any letter is repeated while checking each array
 					argumentNum++;
                String newCount = args[argumentNum];
@@ -85,9 +85,9 @@ public class wc
 		if(whichCount==1)
 			values[0] = lineCount(file);
 		else if(whichCount==2)
-			values[0] = wordCount(file);
+			values[1] = wordCount(file);
 		else if(whichCount==3)
-			values[0] = characterCount(file);
+			values[2] = characterCount(file);
 		else if(whichCount==4)
 		{
 			values[0] = lineCount(file);
@@ -96,11 +96,11 @@ public class wc
 		else if(whichCount==5)
 		{
 			values[0] = lineCount(file);
-			values[1] = characterCount(file);
+			values[2] = characterCount(file);
 		}
 		else if(whichCount==6)
 		{
-			values[0] = characterCount(file);
+			values[2] = characterCount(file);
 			values[1] = wordCount(file);
 		}
 		else if(whichCount==7)
@@ -116,14 +116,16 @@ public class wc
 	public static int lineCount(File file)
 	{
 		int lines = 0;
+
 		try
 		{
 			Scanner s = new Scanner(file);
 			while(s.hasNextLine())
          {
 				lines++;
-            s.next();
+            s.nextLine();
          }
+         
 		}
 		catch(FileNotFoundException e)
 		{
@@ -135,22 +137,17 @@ public class wc
 	//method accepts filename	prints word count
 	public static int wordCount(File file)
 	{
-		int lines = 0;
 		int words = 0;
 		try
 		{
-			Scanner s1 = new Scanner(file);
-			while(s1.hasNextLine())
-			{
-				lines++;
-            s1.next();
-			}
-			String[] wordsArray = new String[lines];
-
-			for(int i=0; i<lines; i++)
-				wordsArray[i] = s1.next();   
-			words = wordsArray.length; 
+			Scanner s = new Scanner(file);
+			while(s.hasNextLine())
+         {
+				words++;
+            s.next();
+         }
 		}
+
 		catch(FileNotFoundException e)
 		{
 			System.out.print("File not found");
@@ -161,29 +158,26 @@ public class wc
 	public static int characterCount(File file)
 	{
 		int characters = 0;
-		int lines = 0;
 		int words = 0;
 		try
 		{
-			Scanner s1 = new Scanner(file);
-			while(s1.hasNextLine())
-			{
-				lines++;
-            s1.next();
-			}
-			String[] wordsArray = new String[lines];
-			
-			for(int i=0; i<lines; i++)
-			{
-				wordsArray[i] = s1.next();  
-				for(int k=0; k<wordsArray.length; k++)
-				{
-					String word = wordsArray[i]; 
-					characters+=word.length();
-				}
-			}
+			Scanner s = new Scanner(file);
+         Scanner s1 = new Scanner(file);
+			while(s.hasNextLine())
+         {
+				words++;
+            s.next();
+         }
+         String wordsArray[] = new String[words];
+         for(int i=0; i<words;i++)
+         {
+            wordsArray[i] = s1.next();
+            characters += wordsArray[i].length();
+         }
+         
 		}
-		catch(FileNotFoundException e)
+
+	   catch(FileNotFoundException e)
 		{
 			System.out.print("File not found");
 		}
@@ -208,5 +202,8 @@ public class wc
 		return count;
 	}
 	
+}
+
+
 }
 
