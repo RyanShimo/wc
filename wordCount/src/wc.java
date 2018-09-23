@@ -6,7 +6,9 @@
 
 import java.io.*;
 import java.util.Scanner;
-public class wc 
+import java.util.Arrays;
+
+public class wc
 {
 	public static void main (String []args) throws FileNotFoundException
 	{
@@ -14,8 +16,7 @@ public class wc
 		
 		if(args.length>=1 && args[0].equals("wc"))
 		{
-			String whichCounts = args[1];
-			char[] firstInput = whichCounts.toCharArray();
+
 			
 			if(args.length==1) // makes sure if the input is strictly wc then it will print out a description
 			{
@@ -23,15 +24,18 @@ public class wc
 						+ "and/or characters in each input file. \n");
 			}
 			
-			else if(args.length>3 && firstInput[0]=='-')  // checks if second argument is a count identifier
+			else if(args.length>2)  // checks if second argument is a count identifier
 			{
 				int identifier = 0;
 				int argumentNum = 1;
+            String whichCounts = args[1];
+			   char[] firstInput = whichCounts.toCharArray();
+            
 				while(firstInput[0]=='-' && firstInput.length>1 && argumentNum!=4) //checks through given argument and gets which counts are going to occur even if input as -l -w -c or -wc -l or -lcw
 				{
 					identifier += countIdentifier(args[argumentNum]); //assumed they only input each letter l w or c once, program will be incorrect if any letter is repeated while checking each array
-					String newCount = args[argumentNum];
 					argumentNum++;
+               String newCount = args[argumentNum];
 					char[] newInput = newCount.toCharArray(); 
 					firstInput[0] = newInput[0];
 				}
@@ -39,9 +43,9 @@ public class wc
 					
 					while(documentOne.exists()) 
 					{
-						//System.out.println("\n" + parentCount(identifier,documentOne));  NEED TO CORRECT ACCEPTING THE FILE OR ARRAY OF FILE
-						argumentNum++;
-						documentOne = new File(args[argumentNum]);
+						System.out.print("\n" + Arrays.toString(parentCount(identifier,documentOne)));  						
+                  //argumentNum++;
+						documentOne = new File(args[argumentNum-1]);
 					}
 			}
 			
@@ -51,8 +55,8 @@ public class wc
 				int numFiles=1;
 				while(documentTwo.exists())
 				{
-					//System.out.println("\n" + parentCount(7,documentOne));  NEED TO CORRECT ACCEPTING THE FILE OR ARRAY OF FILE						
-					numFiles++;
+					System.out.println("\n" + parentCount(7,documentTwo));  
+               numFiles++;
 					documentTwo = new File(args[numFiles]);
 				}
 			}
@@ -66,7 +70,7 @@ public class wc
 
 	
 	//method accepts filename	returns l w, c in an array 
-	public static int[] allCounts(String file)
+	public static int[] allCounts(File file)
 	{
 		int l = lineCount(file);
 		int w = wordCount(file);
@@ -75,7 +79,7 @@ public class wc
 		return counts;
 	}
 	//method accepts countIdentifier and filename 	continues to respected -l, -w, or -c
-	public static int[] parentCount(int whichCount, String file)
+	public static int[] parentCount(int whichCount, File file)
 	{
 		int values[] = new int[3];
 		if(whichCount==1)
@@ -109,14 +113,17 @@ public class wc
 		return values;
 	}
 	//method accepts filename	prints line count
-	public static int lineCount(String file)
+	public static int lineCount(File file)
 	{
 		int lines = 0;
 		try
 		{
-			Scanner s = new Scanner(new File(file));
+			Scanner s = new Scanner(file);
 			while(s.hasNextLine())
-				lines ++;
+         {
+				lines++;
+            s.next();
+         }
 		}
 		catch(FileNotFoundException e)
 		{
@@ -126,22 +133,22 @@ public class wc
 		return lines;
 	}
 	//method accepts filename	prints word count
-	public static int wordCount(String file)
+	public static int wordCount(File file)
 	{
 		int lines = 0;
 		int words = 0;
 		try
 		{
-			Scanner s1 = new Scanner(new File(file));
+			Scanner s1 = new Scanner(file);
 			while(s1.hasNextLine())
 			{
-				lines ++;
+				lines++;
+            s1.next();
 			}
 			String[] wordsArray = new String[lines];
 
-			Scanner s2 = new Scanner(new File(file));
 			for(int i=0; i<lines; i++)
-				wordsArray[i] = s2.next();   
+				wordsArray[i] = s1.next();   
 			words = wordsArray.length; 
 		}
 		catch(FileNotFoundException e)
@@ -151,25 +158,24 @@ public class wc
 		return words;
 	}
 	//method accepts filename	prints character count
-	public static int characterCount(String file)
+	public static int characterCount(File file)
 	{
 		int characters = 0;
 		int lines = 0;
 		int words = 0;
 		try
 		{
-			Scanner s1 = new Scanner(new File(file));
+			Scanner s1 = new Scanner(file);
 			while(s1.hasNextLine())
 			{
-				lines ++;
+				lines++;
+            s1.next();
 			}
 			String[] wordsArray = new String[lines];
-
-			Scanner s2 = new Scanner(new File(file));
 			
 			for(int i=0; i<lines; i++)
 			{
-				wordsArray[i] = s2.next();  
+				wordsArray[i] = s1.next();  
 				for(int k=0; k<wordsArray.length; k++)
 				{
 					String word = wordsArray[i]; 
@@ -190,7 +196,7 @@ public class wc
 	public static int countIdentifier(String identifier)
 	{
 		int count = 0;
-		if(identifier.length()>1)
+		if(identifier.length()>2)
 			count+=1;
 		if(identifier.contains("l"))
 			count+=1;
@@ -204,14 +210,3 @@ public class wc
 	
 }
 
-
-
-
-
-
-
-
-
-
-
- 
