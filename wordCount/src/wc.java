@@ -11,6 +11,7 @@ public class wc
 	public static void main (String []args) throws FileNotFoundException
 	{
 		
+		
 		if(args.length>=1 && args[0].equals("wc"))
 		{
 			String whichCounts = args[1];
@@ -22,45 +23,44 @@ public class wc
 						+ "and/or characters in each input file. \n");
 			}
 			
-			
 			else if(args.length>3 && firstInput[0]=='-')  // checks if second argument is a count identifier
 			{
 				int identifier = 0;
-				int argumentNum =1;
-				while(firstInput[0]=='-' && firstInput.length>1) //checks through given argument and gets which counts are going to be occur even if input as -l or -wc or -lcw
+				int argumentNum = 1;
+				while(firstInput[0]=='-' && firstInput.length>1 && argumentNum!=4) //checks through given argument and gets which counts are going to occur even if input as -l -w -c or -wc -l or -lcw
 				{
-					identifier += countIdentifier(args[argumentNum]); //assumed they only input each letter l w or c once, program will have an error if any letter is repeated while checking each array
+					identifier += countIdentifier(args[argumentNum]); //assumed they only input each letter l w or c once, program will be incorrect if any letter is repeated while checking each array
 					String newCount = args[argumentNum];
 					argumentNum++;
 					char[] newInput = newCount.toCharArray(); 
 					firstInput[0] = newInput[0];
 				}
 					File documentOne = new File(args[argumentNum]);
+					
 					while(documentOne.exists()) 
 					{
-						//enter method accepting int count identifier and filename
-						//System.out.print("\n" + parentCount(7,documentOne));  NEED TO CORRECT ACCEPTING THE FILE OR ARRAY OF FILE
+						//System.out.println("\n" + parentCount(identifier,documentOne));  NEED TO CORRECT ACCEPTING THE FILE OR ARRAY OF FILE
 						argumentNum++;
 						documentOne = new File(args[argumentNum]);
 					}
-					
 			}
 			
 			else 
 			{
 				File documentTwo = new File(args[1]);
-				if(documentTwo.exists())
+				int numFiles=1;
+				while(documentTwo.exists())
 				{
-					int numFiles=1;
-					while(documentTwo.exists())
-					{
-						//enter method accepting  the all count(7) and filename   give array of the data
-						numFiles++;
-						documentTwo = new File(args[numFiles]);
-					}
+					//System.out.println("\n" + parentCount(7,documentOne));  NEED TO CORRECT ACCEPTING THE FILE OR ARRAY OF FILE						
+					numFiles++;
+					documentTwo = new File(args[numFiles]);
 				}
 			}
+
+				
+			}
 		
+			
 		}
 	}
 
@@ -114,13 +114,13 @@ public class wc
 		int lines = 0;
 		try
 		{
-			Scanner s1 = new Scanner(new File(file));
-			while(s1.hasNextLine())
+			Scanner s = new Scanner(new File(file));
+			while(s.hasNextLine())
 				lines ++;
-			
 		}
 		catch(FileNotFoundException e)
 		{
+			System.out.print("File not found");
 		}
 
 		return lines;
@@ -128,9 +128,28 @@ public class wc
 	//method accepts filename	prints word count
 	public static int wordCount(String file)
 	{
+		int lines = 0;
 		int words = 0;
-		
+		try
+		{
+			Scanner s1 = new Scanner(new File(file));
+			while(s1.hasNextLine())
+			{
+				lines ++;
+			}
+			String[] wordsArray = new String[lines];
+
+			Scanner s2 = new Scanner(new File(file));
+			for(int i=0; i<lines; i++)
+				wordsArray[i] = s2.next();   
+			words = wordsArray.length; 
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.print("File not found");
+		}
 		return words;
+
 	}
 	//method accepts filename	prints character count
 	public static int characterCount(String file)
