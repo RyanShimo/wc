@@ -56,13 +56,13 @@ public class wc
 					documentTwo = new File(args[numFiles]);
 				}
 			}
-
-				
-			}
+	
+		}
 		
 			
-		}
 	}
+
+
 
 	
 	//method accepts filename	returns l w, c in an array 
@@ -149,13 +149,39 @@ public class wc
 			System.out.print("File not found");
 		}
 		return words;
-
 	}
 	//method accepts filename	prints character count
 	public static int characterCount(String file)
 	{
 		int characters = 0;
-		
+		int lines = 0;
+		int words = 0;
+		try
+		{
+			Scanner s1 = new Scanner(new File(file));
+			while(s1.hasNextLine())
+			{
+				lines ++;
+			}
+			String[] wordsArray = new String[lines];
+
+			Scanner s2 = new Scanner(new File(file));
+			
+			for(int i=0; i<lines; i++)
+			{
+				wordsArray[i] = s2.next();  
+				for(int k=0; k<wordsArray.length; k++)
+				{
+					String word = wordsArray[i]; 
+					characters+=word.length();
+				}
+			}
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.print("File not found");
+		}
+
 		return characters;
 	}
 	
