@@ -21,7 +21,7 @@ public class wc
 						+ "and/or characters in each input file. \n");
 			}
 			
-			else if(args.length>2)  // checks if second argument is a count identifier
+			else if(args.length>2)  // checks if next args is a count identifier or file 
 			{
 				int identifier = 0;
 				int argumentNum = 1;
@@ -133,10 +133,10 @@ public class wc
 		{
 			Scanner s = new Scanner(file);
 			while(s.hasNextLine())
-         {
+			{
 				words++;
-            s.next();
-         }
+				s.next();
+			}
 		}
 
 		catch(FileNotFoundException e)
@@ -154,18 +154,18 @@ public class wc
 		try
 		{
 			Scanner s = new Scanner(file);
-         Scanner s1 = new Scanner(file);
+			Scanner s1 = new Scanner(file);
 			while(s.hasNextLine())
-         {
+			{
 				words++;
-            s.next();
-         }
-         String wordsArray[] = new String[words];
-         for(int i=0; i<words;i++)
-         {
-            wordsArray[i] = s1.next();
-            characters += wordsArray[i].length();
-         }
+				s.next();
+			}
+			String wordsArray[] = new String[words];
+			for(int i=0; i<words;i++)
+			{
+				wordsArray[i] = s1.next();
+				characters += wordsArray[i].length();
+			}
 		}
 	   catch(FileNotFoundException e)
 		{
@@ -196,9 +196,9 @@ public class wc
 	   for(int i=0; i<3; i++)
 	   {
 		   if(allCounts[i]>0)
-		   	output+=allCounts[i] + " "; 
+			   output+=allCounts[i] + " "; 
 	   }
-      return output;
+	   return output;
    }
 	
 }
