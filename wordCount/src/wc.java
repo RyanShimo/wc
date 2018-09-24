@@ -44,7 +44,7 @@ public class wc
                   
 					while(documentOne.exists()) 
 					{
-						System.out.print("\n" + Arrays.toString(parentCount(identifier,documentOne)));  						
+						System.out.print(  printCounts( parentCount(identifier,documentOne) ) + " " );     
                   if(args.length-1>argumentNum)
                   {
                      argumentNum++;
@@ -189,5 +189,16 @@ public class wc
 
 		return count;
 	}
+   
+   public static String printCounts(int[] allCounts)
+   {
+	   String output = "";
+	   for(int i=0; i<3; i++)
+	   {
+		   if(allCounts[i]>0)
+		   	output+=allCounts[i] + " "; 
+	   }
+      return output;
+   }
 	
 }
